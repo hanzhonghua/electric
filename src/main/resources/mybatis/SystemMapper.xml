@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.electric.mapper.SystemMapper">
+	<insert id="savePending" parameterType="com.electric.pojo.ElecCommonMsg">
+		insert into Elec_CommonMsg 
+			(
+				ComID,
+				StationRun,
+				DevRun,
+				CreateDate,
+				CreateEmpCode
+			)
+			values(
+				#{comId,jdbcType=VARCHAR},
+				#{stationRun,jdbcType=VARCHAR},
+				#{devRun,jdbcType=VARCHAR},
+				#{createDate},
+				#{createEmpCode,jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<select id="selectstationMsgList" resultType="com.electric.pojo.ElecCommonMsg">
+		select 
+			ComID,
+			StationRun,
+			DevRun,
+			date_format(CreateDate,'%Y-%m-%d %H:%i:%s') CreateDate,
+			CreateEmpCode
+		from 
+			Elec_CommonMsg e
+		ORDER BY e.CreateDate DESC
+	</select>
+</mapper>
